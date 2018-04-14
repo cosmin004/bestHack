@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TheBoringTeam.CIAssistant.BusinessLogic;
+using AutoMapper;
 
 namespace TheBoringTeam.CIAssistant.API
 {
@@ -23,6 +24,7 @@ namespace TheBoringTeam.CIAssistant.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddAutoMapper();
             services.AddBusinessLogic(Configuration);
         }
 
@@ -33,6 +35,11 @@ namespace TheBoringTeam.CIAssistant.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder =>
+                builder.WithOrigins("*")
+                       .AllowAnyHeader()
+            );
 
             app.UseMvc();
         }
