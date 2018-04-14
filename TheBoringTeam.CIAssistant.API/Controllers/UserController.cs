@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using TheBoringTeam.CIAssistant.API.Infrastructure;
 using System.Security.Cryptography;
+using TheBoringTeam.CIAssistant.BusinessEntities.Enums;
 
 namespace TheBoringTeam.CIAssistant.API.Controllers
 {
@@ -81,6 +82,7 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
         [HttpGet]
         [Route("")]
         [BearerAuthentication]
+        [RoleFilter(RolesEnum.Owner)]
         public IActionResult GET()
         {
             IEnumerable<User> users = _userBL.Search(f => true);
@@ -90,6 +92,7 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
         [HttpGet]
         [Route("{id}")]
         [BearerAuthentication]
+        [RoleFilter(RolesEnum.Owner)]
         public IActionResult GETById(string id)
         {
             User user = _userBL.GetById(id);
@@ -103,6 +106,7 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
         [HttpDelete]
         [Route("{id}")]
         [BearerAuthentication]
+        [RoleFilter(RolesEnum.Owner)]
         public IActionResult DELETE(string id)
         {
             User currentUser = _userBL.GetById(id);
@@ -118,6 +122,7 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
         [HttpPut]
         [Route("{id}")]
         [BearerAuthentication]
+        [RoleFilter(RolesEnum.Owner)]
         public IActionResult PUT(string id, [FromBody] UserUpdateDTO user)
         {
             if (!ModelState.IsValid)
@@ -148,6 +153,7 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
         [HttpPost]
         [Route("")]
         [BearerAuthentication]
+        [RoleFilter(RolesEnum.Owner)]
         public IActionResult POST([FromBody] UserCreateDTO user)
         {
             if (!ModelState.IsValid)

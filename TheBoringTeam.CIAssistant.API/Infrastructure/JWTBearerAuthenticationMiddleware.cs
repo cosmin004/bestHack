@@ -60,7 +60,8 @@ namespace TheBoringTeam.CIAssistant.API.Infrastructure
                             ICollection<Claim> claims = new List<Claim>()
                             {
                                 new Claim("UserId", currentUser.Id),
-                                new Claim("AuthSchema", "Bearer")
+                                new Claim("AuthSchema", "Bearer"),
+                                new Claim("Role", currentUser.Role.ToString())
                             };
 
                             ClaimsIdentity identity = new ClaimsIdentity(claims, "Basic");
