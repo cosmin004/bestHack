@@ -15,6 +15,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheBoringTeam.CIAssistant.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheBoringTeam.CIAssistant.BusinessLogic", "TheBoringTeam.CIAssistant.BusinessLogic\TheBoringTeam.CIAssistant.BusinessLogic.csproj", "{C3176327-BFE1-4E19-A6E7-84AA05BAD639}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiAiSDK.NETCore", "ApiAiSDK.NETCore\ApiAiSDK.NETCore.csproj", "{D582BD47-4983-4CB6-AAE6-73FD52522E65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiAiSDK", "ApiAiSDK\ApiAiSDK.csproj", "{162D1664-491D-41A3-B4E7-332EAAF87CCA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{C3176327-BFE1-4E19-A6E7-84AA05BAD639}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3176327-BFE1-4E19-A6E7-84AA05BAD639}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3176327-BFE1-4E19-A6E7-84AA05BAD639}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D582BD47-4983-4CB6-AAE6-73FD52522E65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D582BD47-4983-4CB6-AAE6-73FD52522E65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D582BD47-4983-4CB6-AAE6-73FD52522E65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D582BD47-4983-4CB6-AAE6-73FD52522E65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{162D1664-491D-41A3-B4E7-332EAAF87CCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{162D1664-491D-41A3-B4E7-332EAAF87CCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{162D1664-491D-41A3-B4E7-332EAAF87CCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{162D1664-491D-41A3-B4E7-332EAAF87CCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

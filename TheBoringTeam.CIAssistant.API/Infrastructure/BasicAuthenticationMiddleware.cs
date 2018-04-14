@@ -51,7 +51,7 @@ namespace TheBoringTeam.CIAssistant.API.Infrastructure
                     {
                         new Claim("UserId", currentUser.Id),
                         new Claim("AuthSchema", "Basic"),
-                        new Claim("Roles", currentUser.Role.ToString())
+                        new Claim("Roles", ((int)currentUser.Role).ToString())
                     };
 
                     ClaimsIdentity identity = new ClaimsIdentity(claims, "Basic");

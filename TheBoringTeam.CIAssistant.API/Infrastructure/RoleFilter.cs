@@ -27,7 +27,7 @@ namespace TheBoringTeam.CIAssistant.API.Infrastructure
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            if (!context.HttpContext.User.Claims.Any(c => c.Type == "Role" && c.Value == this._role.ToString()))
+            if (!context.HttpContext.User.Claims.Any(c => c.Type == "Role" && int.Parse(c.Value) > ((int)this._role)))
             {
                 context.Result = new StatusCodeResult(403);
             }
