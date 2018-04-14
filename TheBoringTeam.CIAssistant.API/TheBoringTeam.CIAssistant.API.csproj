@@ -11,10 +11,17 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TheBoringTeam.CIAssistant.BusinessLogic\TheBoringTeam.CIAssistant.BusinessLogic.csproj" />
+    <ProjectReference Include="..\TheBoringTeam.CIAssistant.BussinesEntities\TheBoringTeam.CIAssistant.BusinessEntities.csproj" />
+    <ProjectReference Include="..\TheBoringTeam.CIAssistant.DataAccess\TheBoringTeam.CIAssistant.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,6 +8,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using TheBoringTeam.CIAssistant.BusinessLogic.Interfaces;
+using TheBoringTeam.CIAssistant.BusinessEntities.Entities;
+using TheBoringTeam.CIAssistant.DataAccess.Interfaces;
+using TheBoringTeam.CIAssistant.BusinessLogic.Entities;
+using TheBoringTeam.CIAssistant.DataAccess;
 
 namespace TheBoringTeam.CIAssistant.API
 {
@@ -24,6 +29,12 @@ namespace TheBoringTeam.CIAssistant.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddTransient<IBaseBusinessLogic<User>, BaseBusinessLogic<User>>();
+            services.AddTransient<IBaseMongoRepository<User>>(f =>
+                new BaseMongoRepository<User>(Configuration["mongoConnectionString"],
+                    Configuration["mongoDatabaseName"],
+                    true));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
