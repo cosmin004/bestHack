@@ -28,4 +28,10 @@
     <ProjectReference Include="..\TheBoringTeam.CIAssistant.BussinesEntities\TheBoringTeam.CIAssistant.BusinessEntities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="azureauth.properties">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
