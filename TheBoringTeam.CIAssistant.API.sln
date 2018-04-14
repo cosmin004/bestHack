@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBoringTeam.CIAssistant.API", "TheBoringTeam.CIAssistant.API\TheBoringTeam.CIAssistant.API.csproj", "{6DDB3394-0A58-4C31-9A66-83AD7CAF02A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheBoringTeam.CIAssistant.API", "TheBoringTeam.CIAssistant.API\TheBoringTeam.CIAssistant.API.csproj", "{6DDB3394-0A58-4C31-9A66-83AD7CAF02A2}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{CB72EDD2-B469-44CE-A12F-189314F5BDD5}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "TheBoringTeam.CIAssistant.UI", "TheBoringTeam.CIAssistant.UI\TheBoringTeam.CIAssistant.UI.njsproj", "{4CD4285A-BAE8-4279-9E0A-22C8372DB512}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{CB72EDD2-B469-44CE-A12F-189314F5BDD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB72EDD2-B469-44CE-A12F-189314F5BDD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB72EDD2-B469-44CE-A12F-189314F5BDD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CD4285A-BAE8-4279-9E0A-22C8372DB512}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CD4285A-BAE8-4279-9E0A-22C8372DB512}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CD4285A-BAE8-4279-9E0A-22C8372DB512}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CD4285A-BAE8-4279-9E0A-22C8372DB512}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
