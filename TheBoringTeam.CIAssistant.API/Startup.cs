@@ -10,6 +10,9 @@ using TheBoringTeam.CIAssistant.BusinessLogic;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using TheBoringTeam.CIAssistant.API.Infrastructure;
+using Microsoft.Azure.Management.Fluent;
+using TheBoringTeam.CIAssistant.BusinessLogic.Interfaces;
+using TheBoringTeam.CIAssistant.BusinessLogic.Entities;
 
 namespace TheBoringTeam.CIAssistant.API
 {
@@ -43,6 +46,9 @@ namespace TheBoringTeam.CIAssistant.API
 
                 });
             });
+            services.AddSingleton<IAzure>(AzureAuthenticator.GetAzure());
+            services.AddTransient<IAzureBusinessLogic, AzureBusinessLogic>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
