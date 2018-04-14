@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TheBoringTeam.CIAssistant.BusinessLogic;
 using AutoMapper;
+using TheBoringTeam.CIAssistant.API.Infrastructure;
+using Microsoft.Azure.Management.Fluent;
 
 namespace TheBoringTeam.CIAssistant.API
 {
@@ -26,6 +28,7 @@ namespace TheBoringTeam.CIAssistant.API
             services.AddMvc();
             services.AddAutoMapper();
             services.AddBusinessLogic(Configuration);
+            services.AddSingleton<IAzure>(AzureAuthenticator.GetAzure());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
