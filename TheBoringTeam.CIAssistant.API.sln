@@ -9,6 +9,12 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "TheBoringTeam.CIAssistant.UI", "TheBoringTeam.CIAssistant.UI\TheBoringTeam.CIAssistant.UI.njsproj", "{4CD4285A-BAE8-4279-9E0A-22C8372DB512}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBoringTeam.CIAssistant.BusinessLogic", "..\TheBoringTeam.CIAssistant.BusinessLogic\TheBoringTeam.CIAssistant.BusinessLogic.csproj", "{47AB3D43-1A4B-4248-A867-6C823F08DBC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBoringTeam.CIAssistant.BusinessEntities", "TheBoringTeam.CIAssistant.BussinesEntities\TheBoringTeam.CIAssistant.BusinessEntities.csproj", "{7402AA2B-2A78-4779-8073-6AD2C7BA59DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBoringTeam.CIAssistant.DataAccess", "TheBoringTeam.CIAssistant.DataAccess\TheBoringTeam.CIAssistant.DataAccess.csproj", "{49116DDC-DC15-4247-8ED1-14038FE5EA58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +33,18 @@ Global
 		{4CD4285A-BAE8-4279-9E0A-22C8372DB512}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CD4285A-BAE8-4279-9E0A-22C8372DB512}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CD4285A-BAE8-4279-9E0A-22C8372DB512}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47AB3D43-1A4B-4248-A867-6C823F08DBC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47AB3D43-1A4B-4248-A867-6C823F08DBC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47AB3D43-1A4B-4248-A867-6C823F08DBC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47AB3D43-1A4B-4248-A867-6C823F08DBC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7402AA2B-2A78-4779-8073-6AD2C7BA59DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7402AA2B-2A78-4779-8073-6AD2C7BA59DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7402AA2B-2A78-4779-8073-6AD2C7BA59DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7402AA2B-2A78-4779-8073-6AD2C7BA59DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49116DDC-DC15-4247-8ED1-14038FE5EA58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49116DDC-DC15-4247-8ED1-14038FE5EA58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49116DDC-DC15-4247-8ED1-14038FE5EA58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49116DDC-DC15-4247-8ED1-14038FE5EA58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
