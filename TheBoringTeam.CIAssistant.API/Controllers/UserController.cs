@@ -40,6 +40,20 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
             return Ok(user);
         }
 
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult DELETE(string id)
+        {
+            User currentUser = _userBL.GetById(id);
+
+            if (currentUser == null)
+                return NotFound();
+
+            _userBL.Delete(currentUser);
+
+            return Ok();
+        }
+
         [HttpPut]
         [Route("{id}")]
         public IActionResult PUT(string id, [FromBody] User user)
@@ -49,6 +63,8 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
             if (currentUser == null)
                 return NotFound();
 
+            user.Id = currentUser.Id;
+            user.DateCreation = currentUser.DateCreation;
             _userBL.Update(user);
 
             return Ok();
