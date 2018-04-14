@@ -18,13 +18,11 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
     {
         private readonly IBaseBusinessLogic<User> _userBL;
         private readonly IMapper _mapper;
-        private readonly IAzure _azure;
 
-        public UserController(IMapper mapper, IBaseBusinessLogic<User> userBL, IAzure azure)
+        public UserController(IMapper mapper, IBaseBusinessLogic<User> userBL)
         {
             this._userBL = userBL;
             this._mapper = mapper;
-            this._azure = azure;
         }
 
         [HttpGet]
