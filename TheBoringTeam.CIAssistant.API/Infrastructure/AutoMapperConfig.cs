@@ -12,6 +12,7 @@ namespace TheBoringTeam.CIAssistant.API.Infrastructure
     {
         public AutoMapperConfig()
         {
+            CreateMap<DialogFlowResponse, SentenceDTO>();
             CreateMap<User, UserDTO>();
             CreateMap<UserCreateDTO, User>();
             CreateMap<UserUpdateDTO, User>();
