@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TheBoringTeam.CIAssistant.BusinessEntities.Entities;
 using TheBoringTeam.CIAssistant.BusinessLogic.Interfaces;
+using AutoMapper;
+using TheBoringTeam.CIAssistant.API.Models;
 
 namespace TheBoringTeam.CIAssistant.API.Controllers
 {
@@ -13,11 +15,13 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
     [Route("api/v1/users")]
     public class UserController : Controller
     {
-        private IBaseBusinessLogic<User> _userBL;
+        private readonly IBaseBusinessLogic<User> _userBL;
+        private readonly IMapper _mapper;
 
-        public UserController(IBaseBusinessLogic<User> userBL)
+        public UserController(IMapper mapper, IBaseBusinessLogic<User> userBL)
         {
             this._userBL = userBL;
+            this._mapper = mapper;
         }
 
         [HttpGet]
@@ -25,7 +29,7 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
         public IActionResult GET()
         {
             IEnumerable<User> users = _userBL.Search(f => true);
-            return Ok(users);
+            return Ok(_mapper.Map<List<UserDTO>>(users));
         }
 
         [HttpGet]
@@ -37,7 +41,7 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
             if (user == null)
                 return NotFound();
 
-            return Ok(user);
+            return Ok(_mapper.Map<UserDTO>(user));
         }
 
         [HttpDelete]
@@ -56,29 +60,39 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public IActionResult PUT(string id, [FromBody] User user)
+        public IActionResult PUT(string id, [FromBody] UserUpdateDTO user)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             User currentUser = _userBL.GetById(id);
 
             if (currentUser == null)
                 return NotFound();
 
-            user.Id = currentUser.Id;
-            user.DateCreation = currentUser.DateCreation;
-            _userBL.Update(user);
+            User toUpdate = _mapper.Map<User>(user);
+            toUpdate.DateCreation = currentUser.DateCreation;
+            toUpdate.Id = currentUser.Id;
+            _userBL.Update(toUpdate);
 
             return Ok();
         }
 
         [HttpPost]
         [Route("")]
-        public IActionResult POST([FromBody] User user)
+        public IActionResult POST([FromBody] UserCreateDTO user)
         {
-            if (user == null)
-                return BadRequest(user);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            _userBL.Insert(user);
-            return Ok(user.Id);
+            User toAdd = _mapper.Map<User>(user);
+
+            _userBL.Insert(toAdd);
+            return Ok(toAdd.Id);
         }
     }
 }
