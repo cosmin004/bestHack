@@ -57,7 +57,8 @@ namespace TheBoringTeam.CIAssistant.API
             app.UseTokenBasedAuthenticationMiddleware();
 
             app.UseCors(builder =>
-                builder.WithOrigins("*")
+                builder.AllowAnyMethod()
+                       .AllowAnyOrigin()
                        .AllowAnyHeader()
             );
 
