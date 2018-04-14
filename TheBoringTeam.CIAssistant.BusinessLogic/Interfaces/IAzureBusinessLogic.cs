@@ -1,4 +1,5 @@
-﻿using Microsoft.Azure.Management.ResourceManager.Fluent;
+﻿using Microsoft.Azure.Management.AppService.Fluent;
+using Microsoft.Azure.Management.ResourceManager.Fluent;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,6 +11,11 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Interfaces
     {
         List<IResourceGroup> GetResourceGroups();
         void DeployApplication(string resourceGroup, string applicationName);
-        void GetApplications();
+        List<IWebApp> GetApplications();
+        IWebApp GetApplication(string resourceGroup, string applicationName);
+        List<IDeployment> GetDeployments();
+        List<IAppServicePlan> GetAppServicePlans();
+        void CreateApp(string name, string resourceGroup);
+        void CreateResourceGroup(string name);
     }
 }

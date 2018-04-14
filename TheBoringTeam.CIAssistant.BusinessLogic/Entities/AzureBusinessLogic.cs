@@ -30,16 +30,34 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
             _azure.WebApps.Inner.SwapSlotWithProductionWithHttpMessagesAsync(resourceGroup, applicationName, new CsmSlotEntityInner("dev", false));
         }
         
-        public void GetApplications()
+        public List<IWebApp> GetApplications()
         {
-            //var x = _azure.WebApps.List().ToList();
-            //var y = _azure.WebApps.Inner.CreateOrUpdateWithHttpMessagesAsync("ciassistant", "newTestApplication", new SiteInner());
-            //var z = _azure.WebApps.GetByResourceGroup("ciassistant","really-really-awesome-app");
-            //var dss = _azure.Deployments.List().ToList();
-            //var qqq = _azure.AppServices.AppServicePlans.List().ToList();
-            //var aaa = _azure.AppServices.Inner.WebApps.BeginCreateOrUpdateWithHttpMessagesAsync("ciassistant", "newtestapplication", new SiteInner());
+            return _azure.WebApps.List().ToList();
+        }
 
+        public IWebApp GetApplication(string resourceGroup, string applicationName)
+        {
+            return _azure.WebApps.GetByResourceGroup(resourceGroup, applicationName);
+        }
+
+        public List<IDeployment> GetDeployments()
+        {
+            return _azure.Deployments.List().ToList();
+        }
+
+        public List<IAppServicePlan> GetAppServicePlans()
+        {
+            return _azure.AppServices.AppServicePlans.List().ToList();
+        }
+
+        public void CreateApp(string name, string resourceGroup)
+        {
             _azure.WebApps.Define("newtestapplication").WithRegion(Region.EuropeNorth).WithExistingResourceGroup("ciassistant").WithNewWindowsPlan(PricingTier.StandardS1).Create();
+        }
+
+        public void CreateResourceGroup(string name)
+        {
+            _azure.ResourceGroups.Define(name).WithRegion(Region.EuropeNorth).Create();
         }
     }
 }
