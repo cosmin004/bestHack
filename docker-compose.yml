@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  theboringteam.ciassistant.api:
+    image: theboringteam.ciassistant.api
+    build:
+      context: ./TheBoringTeam.CIAssistant.API
+      dockerfile: Dockerfile

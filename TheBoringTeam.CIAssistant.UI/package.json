@@ -1,0 +1,9 @@
+{
+  "name": "the-boring-team.ciassistant.ui",
+  "version": "0.0.0",
+  "description": "TheBoringTeam.CIAssistant.UI",
+  "main": "server.js",
+  "author": {
+    "name": "alexp"
+  }
+}
