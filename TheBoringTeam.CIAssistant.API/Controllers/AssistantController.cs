@@ -22,8 +22,8 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
         [Route("")]
         public IActionResult GET()
         {
-            //_azureBL.GetResourceGroups();
             _azureBL.GetApplications();
+            //_azureBL.DeployApplication("ciassistant", "really-really-awesome-app");
             return Ok();
         }
 

@@ -9,7 +9,7 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Interfaces
     public interface IAzureBusinessLogic
     {
         List<IResourceGroup> GetResourceGroups();
-        void DeployApplicationAsync(string resourceGroup, string applicationName);
+        void DeployApplication(string resourceGroup, string applicationName);
         void GetApplications();
     }
 }
