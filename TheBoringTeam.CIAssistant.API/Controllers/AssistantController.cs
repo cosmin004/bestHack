@@ -35,16 +35,14 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
 
 
         [HttpGet]
-        [BearerAuthentication]
-        [RoleFilter(RolesEnum.Viewer)]
+        //[BearerAuthentication]
+        //[RoleFilter(RolesEnum.Viewer)]
         [Route("actions")]
         public IActionResult ACTIONS()
         {
             //_azureBL.CreateAppWithDeployment("test01", "ciassistant", "https://github.com/avp-101/brandnewdeploymentapp.git", "master", true);
-            _azureBL.CreateApp("test012", "ciassistant");
+            _azureBL.CreateApp("testatatat", "ciassistant");
             var actions = _actionBusinessLogic.Search(f => true).ToList();
-            
-            //return Ok(_mapper.Map<ActionDTO>(actions));
             return Ok(actions);
         }
 

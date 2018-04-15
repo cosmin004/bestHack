@@ -44,10 +44,10 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
 
         public void CreateApp(string name, string resourceGroup)
         {
+            var plan = _azure.AppServices.AppServicePlans.List().ToList().FirstOrDefault();
             _azure.WebApps.Define(name)
-                .WithRegion(Region.EuropeWest)
-                .WithExistingResourceGroup(resourceGroup)
-                .WithNewWindowsPlan(PricingTier.StandardS1).CreateAsync();
+                .WithExistingWindowsPlan(plan)
+                .WithExistingResourceGroup(resourceGroup).Create();
         }
 
         public List<IDeployment> GetDeployments()
@@ -72,21 +72,16 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
 
         public void CreateAppWithDeployment(string name, string resourceGroup, string repository, string branch, bool hasDev)
         {
+
+            var plan = _azure.AppServices.AppServicePlans.List().ToList().FirstOrDefault();
             if (hasDev)
             {
-                //var app = _azure.WebApps.Define(name)
-                //    .WithRegion(Region.EuropeNorth)
-                //    .WithExistingResourceGroup(resourceGroup)
-                //    .WithNewWindowsPlan(PricingTier.StandardS2)
-                //    .Create();
+                var app = _azure.WebApps.Define(name)
+                    .WithExistingWindowsPlan(plan)                    
+                    .WithExistingResourceGroup(resourceGroup)
+                    .Create();
 
-                var x = _azure.WebApps.Define(name);
-                var y = x.WithRegion(Region.EuropeNorth);
-                var z = y.WithExistingResourceGroup(resourceGroup);
-                var zz = z.WithNewWindowsPlan(PricingTier.StandardS2);
-                var zzz = zz.Create();
-
-                zzz.DeploymentSlots.Define("dev")
+                app.DeploymentSlots.Define("dev")
                     .WithBrandNewConfiguration()
                     .DefineSourceControl()
                     .WithPublicGitRepository(repository)
@@ -97,9 +92,8 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
             else
             {
                 _azure.WebApps.Define(name)
-                    .WithRegion(Region.EuropeNorth)
+                    .WithExistingWindowsPlan(plan)
                     .WithExistingResourceGroup(resourceGroup)
-                    .WithNewWindowsPlan(PricingTier.StandardS2)
                     .DefineSourceControl()
                     .WithPublicGitRepository(repository)
                     .WithBranch(branch)
