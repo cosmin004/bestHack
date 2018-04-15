@@ -33,6 +33,24 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
             {
                 case ActionsEnum.Default:
                     return response.Result.Fulfillment.Speech;
+                case ActionsEnum.CreateResourceGroup:
+                    var name = response.Result.Contexts.FirstOrDefault()?
+                        .Parameters["application"]?.ToString();
+
+                    if (name == null)
+                        return "The name can't be empty";
+
+                    this._azureBusinessLogic.CreateResourceGroup(name);
+
+                    return response.Result.Fulfillment.Speech;
+                case ActionsEnum.ShowServicePlans:
+                    var servicePlans = this._azureBusinessLogic.GetAppServicePlans();
+
+                    return "This is what I've found: " + String.Join(',', servicePlans.Select(f => f.Name));
+                case ActionsEnum.ShowDeployments:
+                    var deployments = this._azureBusinessLogic.GetDeployments();
+
+                    return "This is what I've found: " + String.Join(',', deployments.Select(f => f.Name));
                 case ActionsEnum.ShowResourceGroups:
                     var rsGroups = this._azureBusinessLogic.GetResourceGroups();
 

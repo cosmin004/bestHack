@@ -33,17 +33,10 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
             this._actionBusinessLogic = actionBusinessLogic;
         }
 
-        [HttpGet]
-        [Route("")]
-        public IActionResult GET()
-        {
-            //_azureBL.CreateAppServicePlan("newTestServicePlanz", "ciassistant");
-            //_azureBL.DeployApplication("ciassistant", "really-really-awesome-app");
-            //_azureBL.CreateAppWithDeployment("brandnewappwithdeployment", "ciassistant", "https://github.com/avp-101/brandnewdeploymentapp.git", "master");
-            return Ok();
-        }
 
         [HttpGet]
+        [RoleFilter(RolesEnum.Viewer)]
+        [BearerAuthentication]
         [Route("actions")]
         public IActionResult ACTIONS()
         {
