@@ -17,8 +17,13 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic
         {
             services.AddTransient<IDialogFlowBusinessLogic, DialogFlowBusinessLogic>();
             services.AddTransient<IBaseBusinessLogic<User>, BaseBusinessLogic<User>>();
+            services.AddTransient<IBaseBusinessLogic<BusinessEntities.Entities.Action>, BaseBusinessLogic<BusinessEntities.Entities.Action>>();
             services.AddTransient<IBaseMongoRepository<User>>(f =>
                 new BaseMongoRepository<User>(configuration["mongoConnectionString"],
+                    configuration["mongoDatabaseName"],
+                    true));
+            services.AddTransient<IBaseMongoRepository<BusinessEntities.Entities.Action>>(f =>
+                new BaseMongoRepository<BusinessEntities.Entities.Action>(configuration["mongoConnectionString"],
                     configuration["mongoDatabaseName"],
                     true));
         }

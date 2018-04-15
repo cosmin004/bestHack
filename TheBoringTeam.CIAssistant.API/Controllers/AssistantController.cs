@@ -20,14 +20,17 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
         private readonly IAzureBusinessLogic _azureBL;
         private readonly IDialogFlowBusinessLogic _dialogFlowBusinessLogic;
         private readonly IMapper _mapper;
+        private readonly IBaseBusinessLogic<BusinessEntities.Entities.Action> _actionBusinessLogic;
 
         public AssistantController(IAzureBusinessLogic azureBL, 
             IDialogFlowBusinessLogic dialogFlowBusinessLogic,
-            IMapper mapper)
+            IMapper mapper,
+            IBaseBusinessLogic<BusinessEntities.Entities.Action> actionBusinessLogic)
         {
             this._azureBL = azureBL;
             this._dialogFlowBusinessLogic = dialogFlowBusinessLogic;
             this._mapper = mapper;
+            this._actionBusinessLogic = actionBusinessLogic;
         }
 
         [HttpGet]
@@ -37,6 +40,14 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
             //_azureBL.CreateAppServicePlan("newTestServicePlanz", "ciassistant");
             //_azureBL.DeployApplication("ciassistant", "really-really-awesome-app");
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("actions")]
+        public IActionResult ACTIONS()
+        {
+            var actions = _actionBusinessLogic.Search(null).ToList();
+            return Ok(_mapper.Map<ActionDTO>(actions));
         }
 
         [HttpPost]
