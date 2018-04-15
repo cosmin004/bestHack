@@ -39,6 +39,7 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
         {
             //_azureBL.CreateAppServicePlan("newTestServicePlanz", "ciassistant");
             //_azureBL.DeployApplication("ciassistant", "really-really-awesome-app");
+            //_azureBL.CreateAppWithDeployment("brandnewappwithdeployment", "ciassistant", "https://github.com/avp-101/brandnewdeploymentapp.git", "master");
             return Ok();
         }
 

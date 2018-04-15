@@ -18,5 +18,6 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Interfaces
         void CreateApp(string name, string resourceGroup);
         void CreateResourceGroup(string name);
         void CreateAppServicePlan(string name, string resourceGroup);
+        void CreateAppWithDeployment(string name, string resourceGroup, string repository, string branch);
     }
 }
