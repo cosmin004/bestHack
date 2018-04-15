@@ -10,12 +10,13 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Interfaces
     public interface IAzureBusinessLogic
     {
         List<IResourceGroup> GetResourceGroups();
-        void DeployApplication(string resourceGroup, string applicationName);
+        bool DeployApplication(string resourceGroup, string applicationName, string sourceEnvironment);
         List<IWebApp> GetApplications();
         IWebApp GetApplication(string resourceGroup, string applicationName);
         List<IDeployment> GetDeployments();
         List<IAppServicePlan> GetAppServicePlans();
         void CreateApp(string name, string resourceGroup);
         void CreateResourceGroup(string name);
+        void CreateAppServicePlan(string name, string resourceGroup);
     }
 }
