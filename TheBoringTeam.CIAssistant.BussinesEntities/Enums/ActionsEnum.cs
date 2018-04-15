@@ -13,7 +13,8 @@ namespace TheBoringTeam.CIAssistant.BusinessEntities.Enums
         ShowApplication = 4,
         ShowDeployments = 5,
         ShowServicePlans = 6,
-        CreateResourceGroup = 7
+        CreateResourceGroup = 7,
+        CreateApplicationAction = 8
 
     }
 }

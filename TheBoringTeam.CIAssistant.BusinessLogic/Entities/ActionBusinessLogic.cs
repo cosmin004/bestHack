@@ -13,10 +13,12 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
     public class ActionBusinessLogic : IActionBusinessLogic
     {
         private readonly IAzureBusinessLogic _azureBusinessLogic;
+        private readonly IBaseBusinessLogic<BusinessEntities.Entities.Action> _actionBusinessLogic;
 
-        public ActionBusinessLogic(IAzureBusinessLogic azureBusinessLogic)
+        public ActionBusinessLogic(IAzureBusinessLogic azureBusinessLogic, IBaseBusinessLogic<BusinessEntities.Entities.Action> actionBusinessLogic)
         {
             this._azureBusinessLogic = azureBusinessLogic;
+            this._actionBusinessLogic = actionBusinessLogic;
         }
 
         public string HandleAction(AIResponse response, RolesEnum userRole)
@@ -33,15 +35,50 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
             {
                 case ActionsEnum.Default:
                     return response.Result.Fulfillment.Speech;
+                case ActionsEnum.CreateApplicationAction:
+                    var newAppName = response.Result.Contexts.FirstOrDefault()?
+                        .Parameters["name"]?.ToString();
+
+                    if (newAppName == null)
+                        return "The name can't be empty";
+
+                    var resourceGroup = response.Result.Contexts.FirstOrDefault()?
+                        .Parameters["resourceGroup"]?.ToString();
+
+                    if (resourceGroup == null)
+                        return "The resourceGroup can't be empty";
+
+                    var repository = response.Result.Contexts.FirstOrDefault()?
+                        .Parameters["repository"]?.ToString();
+
+                    if (repository == null)
+                        return "The repository can't be empty";
+
+                    var branch = response.Result.Contexts.FirstOrDefault()?
+                        .Parameters["branch"]?.ToString();
+
+                    if (branch == null)
+                        return "The branch can't be empty";
+
+                    var hasDev = response.Result.Contexts.FirstOrDefault()?
+                        .Parameters["hasDev"]?.ToString();
+
+                    if (branch == null)
+                        return "You should say if you want development slot or not";
+
+                    this._azureBusinessLogic.CreateAppWithDeployment(newAppName, resourceGroup, repository, branch, hasDev == "yes");
+                    this._actionBusinessLogic.Insert(new BusinessEntities.Entities.Action() { ActionType = ActionsEnum.CreateApplicationAction, Description = newAppName + " app was created" });
+                    return "Application has been created successfully. Enjoy!";
+
                 case ActionsEnum.CreateResourceGroup:
                     var name = response.Result.Contexts.FirstOrDefault()?
-                        .Parameters["application"]?.ToString();
+                        .Parameters["name"]?.ToString();
 
                     if (name == null)
                         return "The name can't be empty";
 
                     this._azureBusinessLogic.CreateResourceGroup(name);
-
+                    this._actionBusinessLogic.Insert(new BusinessEntities.Entities.Action() { ActionType = ActionsEnum.CreateResourceGroup, Description = name + " resource group was created" });
                     return response.Result.Fulfillment.Speech;
                 case ActionsEnum.ShowServicePlans:
                     var servicePlans = this._azureBusinessLogic.GetAppServicePlans();
@@ -97,6 +134,7 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
                     if (!this._azureBusinessLogic.DeployApplication(resoureceGroup, applicationName, fromEnv)) {
                         return "I was unable to start deployment for " + applicationName + " from " + resoureceGroup;
                     }
+                    this._actionBusinessLogic.Insert(new BusinessEntities.Entities.Action() { ActionType = ActionsEnum.DeployWebApp, Description = applicationName + " was deployed" });
                     return response.Result.Fulfillment.Speech;
                 default:
                     return response.Result.Fulfillment.Speech;
