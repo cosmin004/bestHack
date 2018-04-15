@@ -71,21 +71,36 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
                 .Create();
         }
 
-        public void CreateAppWithDeployment(string name, string resourceGroup, string repository, string branch)
+        public void CreateAppWithDeployment(string name, string resourceGroup, string repository, string branch, bool hasDev)
         {
-            var app = _azure.WebApps.Define(name)
-                .WithRegion(Region.EuropeNorth)
-                .WithExistingResourceGroup(resourceGroup)
-                .WithNewWindowsPlan(PricingTier.StandardS2)
-                .Create();
+            if (hasDev)
+            {
+                var app = _azure.WebApps.Define(name)
+                    .WithRegion(Region.EuropeNorth)
+                    .WithExistingResourceGroup(resourceGroup)
+                    .WithNewWindowsPlan(PricingTier.StandardS2)
+                    .Create();
 
-            app.DeploymentSlots.Define("dev")
-                .WithBrandNewConfiguration()
-                .DefineSourceControl()
-                .WithPublicGitRepository(repository)
-                .WithBranch(branch)
-                .Attach()
-                .Create();
+                app.DeploymentSlots.Define("dev")
+                    .WithBrandNewConfiguration()
+                    .DefineSourceControl()
+                    .WithPublicGitRepository(repository)
+                    .WithBranch(branch)
+                    .Attach()
+                    .Create();
+            }
+            else
+            {
+                _azure.WebApps.Define(name)
+                    .WithRegion(Region.EuropeNorth)
+                    .WithExistingResourceGroup(resourceGroup)
+                    .WithNewWindowsPlan(PricingTier.StandardS2)
+                    .DefineSourceControl()
+                    .WithPublicGitRepository(repository)
+                    .WithBranch(branch)
+                    .Attach()
+                    .Create();
+            }
         }
 
         public void CreateResourceGroup(string name)
