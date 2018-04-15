@@ -62,7 +62,7 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
             }
 
             DialogFlowResponse result = await this._dialogFlowBusinessLogic
-                .Talk(sentence.Sentence, sentence.SessionId);
+                .Talk(sentence.Sentence, sentence.SessionId, ((RolesEnum)int.Parse(User.Claims.FirstOrDefault(f => f.Type == "Role").Value)));
 
             return Ok(_mapper.Map<SentenceDTO>(result));
         }
