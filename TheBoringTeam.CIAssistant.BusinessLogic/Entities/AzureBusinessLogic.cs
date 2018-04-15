@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using TheBoringTeam.CIAssistant.BusinessLogic.Interfaces;
 
 namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
@@ -44,10 +45,14 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
 
         public void CreateApp(string name, string resourceGroup)
         {
-            var plan = _azure.AppServices.AppServicePlans.List().ToList().FirstOrDefault();
-            _azure.WebApps.Define(name)
-                .WithExistingWindowsPlan(plan)
-                .WithExistingResourceGroup(resourceGroup).Create();
+            var plan = _azure.AppServices.AppServicePlans
+                .Define(name).WithRegion(Region.EuropeNorth)
+                .WithExistingResourceGroup(resourceGroup)
+                .WithPricingTier(PricingTier.StandardS2)
+                .WithOperatingSystem(Microsoft.Azure.Management.AppService.Fluent.OperatingSystem.Windows)
+                .Create();
+
+            var app = _azure.WebApps.Define(name).WithRegion(Region.EuropeNorth).WithExistingResourceGroup(resourceGroup).WithNewWindowsPlan(PricingTier.StandardS2).Create();
         }
 
         public List<IDeployment> GetDeployments()
@@ -73,11 +78,14 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
         public void CreateAppWithDeployment(string name, string resourceGroup, string repository, string branch, bool hasDev)
         {
 
-            var plan = _azure.AppServices.AppServicePlans.List().ToList().FirstOrDefault();
+            var plan = _azure.AppServices.AppServicePlans.Define(name).WithRegion(Region.EuropeNorth).WithExistingResourceGroup(resourceGroup)
+            .WithPricingTier(PricingTier.BasicB3).WithOperatingSystem(Microsoft.Azure.Management.AppService.Fluent.OperatingSystem.Windows)
+            .Create();
+
             if (hasDev)
             {
                 var app = _azure.WebApps.Define(name)
-                    .WithExistingWindowsPlan(plan)                    
+                    .WithExistingWindowsPlan(plan)
                     .WithExistingResourceGroup(resourceGroup)
                     .Create();
 
