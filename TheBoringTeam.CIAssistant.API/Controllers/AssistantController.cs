@@ -35,8 +35,8 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
 
 
         [HttpGet]
-        [RoleFilter(RolesEnum.Viewer)]
         [BearerAuthentication]
+        [RoleFilter(RolesEnum.Viewer)]
         [Route("actions")]
         public IActionResult ACTIONS()
         {
