@@ -7,6 +7,9 @@ namespace TheBoringTeam.CIAssistant.BusinessEntities.Enums
     public enum ActionsEnum
     {
         Default = 0,
-        DeployWebApp = 1
+        DeployWebApp = 1,
+        ShowResourceGroups = 2,
+        ShowApplications = 3,
+        ShowApplication = 4
     }
 }

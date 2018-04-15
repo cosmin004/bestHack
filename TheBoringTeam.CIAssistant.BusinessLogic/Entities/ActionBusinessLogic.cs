@@ -24,10 +24,37 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
             ActionsEnum action;
             Enum.TryParse<ActionsEnum>(response.Result.Action, out action);
 
+            if (response.Result.ActionIncomplete)
+            {
+                return response.Result.Fulfillment.Speech;
+            }
+
             switch (action)
             {
                 case ActionsEnum.Default:
                     return response.Result.Fulfillment.Speech;
+                case ActionsEnum.ShowResourceGroups:
+                    var rsGroups = this._azureBusinessLogic.GetResourceGroups();
+
+                    return "I've found the following resource groups: " + String.Join(',', rsGroups.Select(f => f.Name));
+                case ActionsEnum.ShowApplications:
+                    var apps = this._azureBusinessLogic.GetApplications();
+
+                    return "I've found the following apps: " + String.Join(',', apps.Select(f => f.Name));
+                case ActionsEnum.ShowApplication:
+                    var appName = response.Result.Parameters["application"]?.ToString();
+                    var rsGroup = response.Result.Parameters["resourceGroup"]?.ToString();
+
+                    if (appName == null)
+                        return "I couldn't find the application";
+
+                    if (rsGroup == null)
+                        return "I couldn't find the resource group";
+
+                    var application = this._azureBusinessLogic.GetApplication(rsGroup, appName);
+
+                    return "The application you are searching for is hosted on " + application.DefaultHostName + ". It was last modified on " + application.LastModifiedTime + ".";
+
                 case ActionsEnum.DeployWebApp:
                     var applicationName = response.Result.Contexts.FirstOrDefault()?
                         .Parameters["application"]?.ToString();
