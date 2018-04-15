@@ -14,10 +14,12 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
     public class DialogFlowBusinessLogic : IDialogFlowBusinessLogic
     {
         private readonly IConfiguration _configuration;
+        private readonly IActionBusinessLogic _actionBusinessLogic;
 
-        public DialogFlowBusinessLogic(IConfiguration configuration)
+        public DialogFlowBusinessLogic(IConfiguration configuration, IActionBusinessLogic actionBusinessLogic)
         {
             this._configuration = configuration;
+            this._actionBusinessLogic = actionBusinessLogic;
         }
 
         public async Task<DialogFlowResponse> Talk(string sentence, string sessionId)
@@ -29,9 +31,11 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
 
             AIResponse result = await apiAi.TextRequestAsync(sentence);
 
+            string responseText = this._actionBusinessLogic.HandleAction(result);
+
             DialogFlowResponse response = new DialogFlowResponse()
             {
-                Sentence = result.Result.Fulfillment.Speech,
+                Sentence = responseText,
                 Action = result.Result.Action,
                 SessionId = result.SessionId
             };
