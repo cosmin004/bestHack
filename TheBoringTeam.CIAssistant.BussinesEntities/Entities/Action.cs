@@ -3,6 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TheBoringTeam.CIAssistant.BusinessEntities.Enums;
 using TheBoringTeam.CIAssistant.BusinessEntities.Interfaces;
 
 namespace TheBoringTeam.CIAssistant.BusinessEntities.Entities
@@ -15,7 +16,8 @@ namespace TheBoringTeam.CIAssistant.BusinessEntities.Entities
 
         public string Description { get; set; }
 
-        public string ActionType { get; set; }
+        [BsonRepresentation(BsonType.String)]
+        public ActionsEnum ActionType { get; set; }
 
         public DateTime DateCreation { get; set; }
 

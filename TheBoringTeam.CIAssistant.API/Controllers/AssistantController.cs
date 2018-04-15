@@ -46,8 +46,9 @@ namespace TheBoringTeam.CIAssistant.API.Controllers
         [Route("actions")]
         public IActionResult ACTIONS()
         {
-            var actions = _actionBusinessLogic.Search(null).ToList();
-            return Ok(_mapper.Map<ActionDTO>(actions));
+            var actions = _actionBusinessLogic.Search(f => true).ToList();
+            //return Ok(_mapper.Map<ActionDTO>(actions));
+            return Ok(actions);
         }
 
         [HttpPost]
