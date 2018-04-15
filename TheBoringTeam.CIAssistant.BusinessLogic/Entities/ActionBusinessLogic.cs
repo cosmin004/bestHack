@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
+using System.Threading;
 using TheBoringTeam.CIAssistant.BusinessEntities.Enums;
 using TheBoringTeam.CIAssistant.BusinessLogic.Interfaces;
 
@@ -17,7 +19,7 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
             this._azureBusinessLogic = azureBusinessLogic;
         }
 
-        public string HandleAction(AIResponse response)
+        public string HandleAction(AIResponse response, RolesEnum userRole)
         {
             ActionsEnum action;
             Enum.TryParse<ActionsEnum>(response.Result.Action, out action);
@@ -35,6 +37,11 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
 
                     var fromEnv = response.Result.Contexts.FirstOrDefault()?
                         .Parameters["fromEnv"]?.ToString();
+
+                    if (userRole < RolesEnum.Developer)
+                    {
+                        return "I am afraid that you are not allowed to do a deployment";
+                    }
 
                     if (applicationName == null)
                         return "I couldn't find the application";

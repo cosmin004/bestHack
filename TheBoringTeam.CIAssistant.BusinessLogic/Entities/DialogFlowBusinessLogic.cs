@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using TheBoringTeam.CIAssistant.BusinessEntities.Entities;
+using TheBoringTeam.CIAssistant.BusinessEntities.Enums;
 using TheBoringTeam.CIAssistant.BusinessLogic.Interfaces;
 
 namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
@@ -22,7 +23,7 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
             this._actionBusinessLogic = actionBusinessLogic;
         }
 
-        public async Task<DialogFlowResponse> Talk(string sentence, string sessionId)
+        public async Task<DialogFlowResponse> Talk(string sentence, string sessionId, RolesEnum userRole)
         {
             var config = new AIConfiguration(this._configuration["dialogFlowToken"], 
                 SupportedLanguage.English);
@@ -31,7 +32,7 @@ namespace TheBoringTeam.CIAssistant.BusinessLogic.Entities
 
             AIResponse result = await apiAi.TextRequestAsync(sentence);
 
-            string responseText = this._actionBusinessLogic.HandleAction(result);
+            string responseText = this._actionBusinessLogic.HandleAction(result, userRole);
 
             DialogFlowResponse response = new DialogFlowResponse()
             {

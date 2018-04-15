@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TheBoringTeam.CIAssistant.BusinessEntities.Entities;
 using TheBoringTeam.CIAssistant.BusinessLogic.Interfaces;
@@ -56,7 +57,8 @@ namespace TheBoringTeam.CIAssistant.API.Infrastructure
 
                     ClaimsIdentity identity = new ClaimsIdentity(claims, "Basic");
 
-                    context.User = new ClaimsPrincipal(new List<ClaimsIdentity>() { identity });
+                    var claimsPrincipal = new ClaimsPrincipal(new List<ClaimsIdentity>() { identity });
+                    context.User = claimsPrincipal;
                 }
             }
 
